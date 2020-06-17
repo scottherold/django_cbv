@@ -1,19 +1,24 @@
 from django.shortcuts import render
-from django.views.generic import View
-from django.http import HttpResponse
+from django.views.generic import View,TemplateView
 
 
 # Create your views here.
-class CBView(View):
-    """This is a class for a class based view example"""
+class IndexView(TemplateView):
+    """This is a class that displays the basic_app/index/html file.
 
-    def get(self, request):
-        """The function to process HTTP GET requests for the class.
+    Attributes:
+        template_name (str): Path to template to be displayed by view.
+    """
+    template_name = 'basic_app/index.html'
 
-        Parameters:
-            request (HTTPRequest): The HTTP request to process.
+    def get_context_data(self, **kwargs):
+        """
+        Produces context for template.
 
         Returns:
-            HttpResponse: A string sent to the client as a HTTP response.
+            context: A dictionary of context key/value pairs that can be
+            accessed by the index.html template.
         """
-        return HttpResponse('CLASS BASED VIEWS ARE COOL')
+        context = super().get_context_data(**kwargs)
+        context['injectme'] = 'BASIC INJECTION!'
+        return context
