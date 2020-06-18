@@ -31,8 +31,11 @@ class SchoolListView(ListView):
     Attributes:
         model (Model): The school database model (table). Creates a link to the
         database for querying.
+        context_object_name (str): names the context object 'schools' instead
+        of the default school_list provided by the ListView class.
     """
     model = models.School
+    context_object_name = 'schools'
 
 
 class SchoolDetailView(DetailView):
@@ -44,6 +47,9 @@ class SchoolDetailView(DetailView):
         database for querying.
         template_name (str): The location for school_detail.html in the file
         structure.
+        context_object_name (str): names the context object 'school_detail'
+        instead of the default school provided by the DetailView class.
     """
     model = models.School
     template_name = 'basic_app/school_detail.html'
+    context_object_name = 'school_detail'
