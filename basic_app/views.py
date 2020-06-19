@@ -1,5 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import View,TemplateView,ListView,DetailView
+from django.views.generic import (View, TemplateView,
+                                  ListView, DetailView,
+                                  CreateView, UpdateView,
+                                  DeleteView)
+from django.urls import reverse_lazy
 from . import models
 
 
@@ -53,3 +57,46 @@ class SchoolDetailView(DetailView):
     model = models.School
     template_name = 'basic_app/school_detail.html'
     context_object_name = 'school_detail'
+
+
+class SchoolCreateView(CreateView):
+    """This is a class that creates a new School with data provided from the
+    client.
+
+    Attributes:
+        fields (tuple(str)): The list of fields expected to be mapped from the
+        client to the School model during creation.
+        model (Model): The school database model (table). Creates a link to the
+        database for creation.
+    """
+    fields = ('name','principal','location')
+    model = models.School
+
+
+class SchoolUpdateView(UpdateView):
+    """This is a class that updates an existing School with data provided from
+    the client.
+
+    Attributes:
+        fields (tuple(str)): The list of fields expected to be mapped from the
+        client to the School model for updating.
+        model (Model): The school database model (table). Creates a link to the
+        database for updating.
+    """
+    fields = ('name', 'principal')
+    model = models.School
+
+
+class SchoolDeleteView(DeleteView):
+    """This is a class that deletes an existing School with the PK provided
+    from the client.
+
+    Attributes:
+        model (Model): The school database model (table). Creates a link to the
+        database for deleting.
+        success_url (function): Uses the django urls reverse_lazy() function to
+        route the request to the basic_app:list url once the data has been
+        successfully delete.
+    """
+    model = models.School
+    success_url = reverse_lazy("basic_app:list")

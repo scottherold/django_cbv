@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -15,7 +16,15 @@ class School(models.Model):
     location = models.CharField(max_length=256)
 
     def __str__(self):
+        """Returns instantiated School name for class"""
         return self.name
+
+    def get_absolute_url(self):
+        """Returns the detail view function when a new model is created (a new
+        entry is added to the datbasetable through the ORM). Passes the primary
+        key of this new entry to the view as the kwarg 'pk'
+        """
+        return reverse("basic_app:detail", kwargs={'pk': self.pk})
 
 
 class Student(models.Model):

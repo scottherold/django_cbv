@@ -1,7 +1,7 @@
 {% extends "basic_app/basic_app_base.html" %}
 {% block body_block %}
 <div class="jumbotron">
-    <h1>Welcoem to the School Detail Page</h1>
+    <h1>Welcome to the School Detail Page</h1>
     <h2>School Details:</h2>
     <p>{{ school_detail.name }}</p>
     <p>{{ school_detail.principal }}</p>
@@ -12,5 +12,12 @@
     {% for student in school_detail.students.all %}
         <p>{{ student.name }} is {{ student.age }} years old.</p>
     {% endfor %}
+</div>
+<div>
+    <div class="container">
+        <!-- Argument passed is the PK for the ORM to use to perform the update query -->
+        <!-- basic_app/update uses school_form.html -->
+        <p><a class='btn btn-warning' href="{% url 'basic_app:update' pk=school_detail.pk %}">Update</a></p>
+    </div>
 </div>
 {% endblock %}
